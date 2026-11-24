@@ -64,6 +64,10 @@ func (r *remoteRuntime) ListVolumeSnapshots(ctx context.Context, request *iri.Li
 	return r.client.ListVolumeSnapshots(ctx, request)
 }
 
+func (r *remoteRuntime) RotateVolumeEncryption(ctx context.Context, request *iri.RotateVolumeEncryptionRequest) (*iri.RotateVolumeEncryptionResponse, error) {
+	return r.client.RotateVolumeEncryption(ctx, request)
+}
+
 func (r *remoteRuntime) Status(ctx context.Context, request *iri.StatusRequest) (*iri.StatusResponse, error) {
 	return r.client.Status(ctx, request)
 }

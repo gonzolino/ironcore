@@ -17,6 +17,8 @@ service VolumeRuntime {
   rpc DeleteVolumeSnapshot(DeleteVolumeSnapshotRequest) returns (DeleteVolumeSnapshotResponse) {};
   rpc ListVolumeSnapshots(ListVolumeSnapshotsRequest) returns (ListVolumeSnapshotsResponse) {};
 
+  rpc RotateVolumeEncryption(RotateVolumeEncryptionRequest) returns (RotateVolumeEncryptionResponse) {};
+
   rpc Status(StatusRequest) returns (StatusResponse) {};
 }
 
@@ -208,4 +210,12 @@ message DeleteVolumeSnapshotRequest {
 }
 
 message DeleteVolumeSnapshotResponse {
+}
+
+message RotateVolumeEncryptionRequest {
+  string volume_id = 1;
+  EncryptionSpec encryption = 2;
+}
+
+message RotateVolumeEncryptionResponse {
 }

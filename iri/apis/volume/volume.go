@@ -19,6 +19,7 @@ type RuntimeService interface {
 	CreateVolumeSnapshot(context.Context, *api.CreateVolumeSnapshotRequest) (*api.CreateVolumeSnapshotResponse, error)
 	DeleteVolumeSnapshot(context.Context, *api.DeleteVolumeSnapshotRequest) (*api.DeleteVolumeSnapshotResponse, error)
 	ListVolumeSnapshots(context.Context, *api.ListVolumeSnapshotsRequest) (*api.ListVolumeSnapshotsResponse, error)
+	RotateVolumeEncryption(context.Context, *api.RotateVolumeEncryptionRequest) (*api.RotateVolumeEncryptionResponse, error)
 
 	Status(context.Context, *api.StatusRequest) (*api.StatusResponse, error)
 }

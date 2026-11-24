@@ -1965,6 +1965,94 @@ func (*DeleteVolumeSnapshotResponse) Descriptor() ([]byte, []int) {
 	return file_volume_v1alpha1_api_proto_rawDescGZIP(), []int{37}
 }
 
+type RotateVolumeEncryptionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	VolumeId      string                 `protobuf:"bytes,1,opt,name=volume_id,json=volumeId,proto3" json:"volume_id,omitempty"`
+	Encryption    *EncryptionSpec        `protobuf:"bytes,2,opt,name=encryption,proto3" json:"encryption,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RotateVolumeEncryptionRequest) Reset() {
+	*x = RotateVolumeEncryptionRequest{}
+	mi := &file_volume_v1alpha1_api_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RotateVolumeEncryptionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RotateVolumeEncryptionRequest) ProtoMessage() {}
+
+func (x *RotateVolumeEncryptionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_volume_v1alpha1_api_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RotateVolumeEncryptionRequest.ProtoReflect.Descriptor instead.
+func (*RotateVolumeEncryptionRequest) Descriptor() ([]byte, []int) {
+	return file_volume_v1alpha1_api_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *RotateVolumeEncryptionRequest) GetVolumeId() string {
+	if x != nil {
+		return x.VolumeId
+	}
+	return ""
+}
+
+func (x *RotateVolumeEncryptionRequest) GetEncryption() *EncryptionSpec {
+	if x != nil {
+		return x.Encryption
+	}
+	return nil
+}
+
+type RotateVolumeEncryptionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RotateVolumeEncryptionResponse) Reset() {
+	*x = RotateVolumeEncryptionResponse{}
+	mi := &file_volume_v1alpha1_api_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RotateVolumeEncryptionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RotateVolumeEncryptionResponse) ProtoMessage() {}
+
+func (x *RotateVolumeEncryptionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_volume_v1alpha1_api_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RotateVolumeEncryptionResponse.ProtoReflect.Descriptor instead.
+func (*RotateVolumeEncryptionResponse) Descriptor() ([]byte, []int) {
+	return file_volume_v1alpha1_api_proto_rawDescGZIP(), []int{39}
+}
+
 var File_volume_v1alpha1_api_proto protoreflect.FileDescriptor
 
 const file_volume_v1alpha1_api_proto_rawDesc = "" +
@@ -2092,7 +2180,13 @@ const file_volume_v1alpha1_api_proto_rawDesc = "" +
 	"\x0fvolume_snapshot\x18\x01 \x01(\v2\x1f.volume.v1alpha1.VolumeSnapshotR\x0evolumeSnapshot\"K\n" +
 	"\x1bDeleteVolumeSnapshotRequest\x12,\n" +
 	"\x12volume_snapshot_id\x18\x01 \x01(\tR\x10volumeSnapshotId\"\x1e\n" +
-	"\x1cDeleteVolumeSnapshotResponse*I\n" +
+	"\x1cDeleteVolumeSnapshotResponse\"}\n" +
+	"\x1dRotateVolumeEncryptionRequest\x12\x1b\n" +
+	"\tvolume_id\x18\x01 \x01(\tR\bvolumeId\x12?\n" +
+	"\n" +
+	"encryption\x18\x02 \x01(\v2\x1f.volume.v1alpha1.EncryptionSpecR\n" +
+	"encryption\" \n" +
+	"\x1eRotateVolumeEncryptionResponse*I\n" +
 	"\vVolumeState\x12\x12\n" +
 	"\x0eVOLUME_PENDING\x10\x00\x12\x14\n" +
 	"\x10VOLUME_AVAILABLE\x10\x01\x12\x10\n" +
@@ -2100,7 +2194,7 @@ const file_volume_v1alpha1_api_proto_rawDesc = "" +
 	"\x13VolumeSnapshotState\x12\x1b\n" +
 	"\x17VOLUME_SNAPSHOT_PENDING\x10\x00\x12\x19\n" +
 	"\x15VOLUME_SNAPSHOT_READY\x10\x01\x12\x1a\n" +
-	"\x16VOLUME_SNAPSHOT_FAILED\x10\x022\xe0\a\n" +
+	"\x16VOLUME_SNAPSHOT_FAILED\x10\x022\xdd\b\n" +
 	"\rVolumeRuntime\x12N\n" +
 	"\aVersion\x12\x1f.volume.v1alpha1.VersionRequest\x1a .volume.v1alpha1.VersionResponse\"\x00\x12W\n" +
 	"\n" +
@@ -2111,7 +2205,8 @@ const file_volume_v1alpha1_api_proto_rawDesc = "" +
 	"\fDeleteVolume\x12$.volume.v1alpha1.DeleteVolumeRequest\x1a%.volume.v1alpha1.DeleteVolumeResponse\"\x00\x12u\n" +
 	"\x14CreateVolumeSnapshot\x12,.volume.v1alpha1.CreateVolumeSnapshotRequest\x1a-.volume.v1alpha1.CreateVolumeSnapshotResponse\"\x00\x12u\n" +
 	"\x14DeleteVolumeSnapshot\x12,.volume.v1alpha1.DeleteVolumeSnapshotRequest\x1a-.volume.v1alpha1.DeleteVolumeSnapshotResponse\"\x00\x12r\n" +
-	"\x13ListVolumeSnapshots\x12+.volume.v1alpha1.ListVolumeSnapshotsRequest\x1a,.volume.v1alpha1.ListVolumeSnapshotsResponse\"\x00\x12K\n" +
+	"\x13ListVolumeSnapshots\x12+.volume.v1alpha1.ListVolumeSnapshotsRequest\x1a,.volume.v1alpha1.ListVolumeSnapshotsResponse\"\x00\x12{\n" +
+	"\x16RotateVolumeEncryption\x12..volume.v1alpha1.RotateVolumeEncryptionRequest\x1a/.volume.v1alpha1.RotateVolumeEncryptionResponse\"\x00\x12K\n" +
 	"\x06Status\x12\x1e.volume.v1alpha1.StatusRequest\x1a\x1f.volume.v1alpha1.StatusResponse\"\x00B;Z9github.com/ironcore-dev/ironcore/iri/apis/volume/v1alpha1b\x06proto3"
 
 var (
@@ -2127,61 +2222,63 @@ func file_volume_v1alpha1_api_proto_rawDescGZIP() []byte {
 }
 
 var file_volume_v1alpha1_api_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_volume_v1alpha1_api_proto_msgTypes = make([]protoimpl.MessageInfo, 44)
+var file_volume_v1alpha1_api_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
 var file_volume_v1alpha1_api_proto_goTypes = []any{
-	(VolumeState)(0),                     // 0: volume.v1alpha1.VolumeState
-	(VolumeSnapshotState)(0),             // 1: volume.v1alpha1.VolumeSnapshotState
-	(*VolumeFilter)(nil),                 // 2: volume.v1alpha1.VolumeFilter
-	(*EventFilter)(nil),                  // 3: volume.v1alpha1.EventFilter
-	(*VolumeResources)(nil),              // 4: volume.v1alpha1.VolumeResources
-	(*EncryptionSpec)(nil),               // 5: volume.v1alpha1.EncryptionSpec
-	(*ImageDataSource)(nil),              // 6: volume.v1alpha1.ImageDataSource
-	(*SnapshotDataSource)(nil),           // 7: volume.v1alpha1.SnapshotDataSource
-	(*VolumeDataSource)(nil),             // 8: volume.v1alpha1.VolumeDataSource
-	(*VolumeSpec)(nil),                   // 9: volume.v1alpha1.VolumeSpec
-	(*VolumeStatus)(nil),                 // 10: volume.v1alpha1.VolumeStatus
-	(*Volume)(nil),                       // 11: volume.v1alpha1.Volume
-	(*VolumeClassCapabilities)(nil),      // 12: volume.v1alpha1.VolumeClassCapabilities
-	(*VolumeClass)(nil),                  // 13: volume.v1alpha1.VolumeClass
-	(*VolumeClassStatus)(nil),            // 14: volume.v1alpha1.VolumeClassStatus
-	(*VolumeAccess)(nil),                 // 15: volume.v1alpha1.VolumeAccess
-	(*ListEventsRequest)(nil),            // 16: volume.v1alpha1.ListEventsRequest
-	(*ListEventsResponse)(nil),           // 17: volume.v1alpha1.ListEventsResponse
-	(*VersionRequest)(nil),               // 18: volume.v1alpha1.VersionRequest
-	(*VersionResponse)(nil),              // 19: volume.v1alpha1.VersionResponse
-	(*ListVolumesRequest)(nil),           // 20: volume.v1alpha1.ListVolumesRequest
-	(*ListVolumesResponse)(nil),          // 21: volume.v1alpha1.ListVolumesResponse
-	(*CreateVolumeRequest)(nil),          // 22: volume.v1alpha1.CreateVolumeRequest
-	(*ExpandVolumeRequest)(nil),          // 23: volume.v1alpha1.ExpandVolumeRequest
-	(*CreateVolumeResponse)(nil),         // 24: volume.v1alpha1.CreateVolumeResponse
-	(*ExpandVolumeResponse)(nil),         // 25: volume.v1alpha1.ExpandVolumeResponse
-	(*DeleteVolumeRequest)(nil),          // 26: volume.v1alpha1.DeleteVolumeRequest
-	(*DeleteVolumeResponse)(nil),         // 27: volume.v1alpha1.DeleteVolumeResponse
-	(*StatusRequest)(nil),                // 28: volume.v1alpha1.StatusRequest
-	(*StatusResponse)(nil),               // 29: volume.v1alpha1.StatusResponse
-	(*VolumeSnapshotSpec)(nil),           // 30: volume.v1alpha1.VolumeSnapshotSpec
-	(*VolumeSnapshotStatus)(nil),         // 31: volume.v1alpha1.VolumeSnapshotStatus
-	(*VolumeSnapshot)(nil),               // 32: volume.v1alpha1.VolumeSnapshot
-	(*VolumeSnapshotFilter)(nil),         // 33: volume.v1alpha1.VolumeSnapshotFilter
-	(*ListVolumeSnapshotsRequest)(nil),   // 34: volume.v1alpha1.ListVolumeSnapshotsRequest
-	(*ListVolumeSnapshotsResponse)(nil),  // 35: volume.v1alpha1.ListVolumeSnapshotsResponse
-	(*CreateVolumeSnapshotRequest)(nil),  // 36: volume.v1alpha1.CreateVolumeSnapshotRequest
-	(*CreateVolumeSnapshotResponse)(nil), // 37: volume.v1alpha1.CreateVolumeSnapshotResponse
-	(*DeleteVolumeSnapshotRequest)(nil),  // 38: volume.v1alpha1.DeleteVolumeSnapshotRequest
-	(*DeleteVolumeSnapshotResponse)(nil), // 39: volume.v1alpha1.DeleteVolumeSnapshotResponse
-	nil,                                  // 40: volume.v1alpha1.VolumeFilter.LabelSelectorEntry
-	nil,                                  // 41: volume.v1alpha1.EventFilter.LabelSelectorEntry
-	nil,                                  // 42: volume.v1alpha1.EncryptionSpec.SecretDataEntry
-	nil,                                  // 43: volume.v1alpha1.VolumeAccess.AttributesEntry
-	nil,                                  // 44: volume.v1alpha1.VolumeAccess.SecretDataEntry
-	nil,                                  // 45: volume.v1alpha1.VolumeSnapshotFilter.LabelSelectorEntry
-	(*v1alpha1.ObjectMetadata)(nil),      // 46: meta.v1alpha1.ObjectMetadata
-	(*v1alpha11.Event)(nil),              // 47: event.v1alpha1.Event
+	(VolumeState)(0),                       // 0: volume.v1alpha1.VolumeState
+	(VolumeSnapshotState)(0),               // 1: volume.v1alpha1.VolumeSnapshotState
+	(*VolumeFilter)(nil),                   // 2: volume.v1alpha1.VolumeFilter
+	(*EventFilter)(nil),                    // 3: volume.v1alpha1.EventFilter
+	(*VolumeResources)(nil),                // 4: volume.v1alpha1.VolumeResources
+	(*EncryptionSpec)(nil),                 // 5: volume.v1alpha1.EncryptionSpec
+	(*ImageDataSource)(nil),                // 6: volume.v1alpha1.ImageDataSource
+	(*SnapshotDataSource)(nil),             // 7: volume.v1alpha1.SnapshotDataSource
+	(*VolumeDataSource)(nil),               // 8: volume.v1alpha1.VolumeDataSource
+	(*VolumeSpec)(nil),                     // 9: volume.v1alpha1.VolumeSpec
+	(*VolumeStatus)(nil),                   // 10: volume.v1alpha1.VolumeStatus
+	(*Volume)(nil),                         // 11: volume.v1alpha1.Volume
+	(*VolumeClassCapabilities)(nil),        // 12: volume.v1alpha1.VolumeClassCapabilities
+	(*VolumeClass)(nil),                    // 13: volume.v1alpha1.VolumeClass
+	(*VolumeClassStatus)(nil),              // 14: volume.v1alpha1.VolumeClassStatus
+	(*VolumeAccess)(nil),                   // 15: volume.v1alpha1.VolumeAccess
+	(*ListEventsRequest)(nil),              // 16: volume.v1alpha1.ListEventsRequest
+	(*ListEventsResponse)(nil),             // 17: volume.v1alpha1.ListEventsResponse
+	(*VersionRequest)(nil),                 // 18: volume.v1alpha1.VersionRequest
+	(*VersionResponse)(nil),                // 19: volume.v1alpha1.VersionResponse
+	(*ListVolumesRequest)(nil),             // 20: volume.v1alpha1.ListVolumesRequest
+	(*ListVolumesResponse)(nil),            // 21: volume.v1alpha1.ListVolumesResponse
+	(*CreateVolumeRequest)(nil),            // 22: volume.v1alpha1.CreateVolumeRequest
+	(*ExpandVolumeRequest)(nil),            // 23: volume.v1alpha1.ExpandVolumeRequest
+	(*CreateVolumeResponse)(nil),           // 24: volume.v1alpha1.CreateVolumeResponse
+	(*ExpandVolumeResponse)(nil),           // 25: volume.v1alpha1.ExpandVolumeResponse
+	(*DeleteVolumeRequest)(nil),            // 26: volume.v1alpha1.DeleteVolumeRequest
+	(*DeleteVolumeResponse)(nil),           // 27: volume.v1alpha1.DeleteVolumeResponse
+	(*StatusRequest)(nil),                  // 28: volume.v1alpha1.StatusRequest
+	(*StatusResponse)(nil),                 // 29: volume.v1alpha1.StatusResponse
+	(*VolumeSnapshotSpec)(nil),             // 30: volume.v1alpha1.VolumeSnapshotSpec
+	(*VolumeSnapshotStatus)(nil),           // 31: volume.v1alpha1.VolumeSnapshotStatus
+	(*VolumeSnapshot)(nil),                 // 32: volume.v1alpha1.VolumeSnapshot
+	(*VolumeSnapshotFilter)(nil),           // 33: volume.v1alpha1.VolumeSnapshotFilter
+	(*ListVolumeSnapshotsRequest)(nil),     // 34: volume.v1alpha1.ListVolumeSnapshotsRequest
+	(*ListVolumeSnapshotsResponse)(nil),    // 35: volume.v1alpha1.ListVolumeSnapshotsResponse
+	(*CreateVolumeSnapshotRequest)(nil),    // 36: volume.v1alpha1.CreateVolumeSnapshotRequest
+	(*CreateVolumeSnapshotResponse)(nil),   // 37: volume.v1alpha1.CreateVolumeSnapshotResponse
+	(*DeleteVolumeSnapshotRequest)(nil),    // 38: volume.v1alpha1.DeleteVolumeSnapshotRequest
+	(*DeleteVolumeSnapshotResponse)(nil),   // 39: volume.v1alpha1.DeleteVolumeSnapshotResponse
+	(*RotateVolumeEncryptionRequest)(nil),  // 40: volume.v1alpha1.RotateVolumeEncryptionRequest
+	(*RotateVolumeEncryptionResponse)(nil), // 41: volume.v1alpha1.RotateVolumeEncryptionResponse
+	nil,                                    // 42: volume.v1alpha1.VolumeFilter.LabelSelectorEntry
+	nil,                                    // 43: volume.v1alpha1.EventFilter.LabelSelectorEntry
+	nil,                                    // 44: volume.v1alpha1.EncryptionSpec.SecretDataEntry
+	nil,                                    // 45: volume.v1alpha1.VolumeAccess.AttributesEntry
+	nil,                                    // 46: volume.v1alpha1.VolumeAccess.SecretDataEntry
+	nil,                                    // 47: volume.v1alpha1.VolumeSnapshotFilter.LabelSelectorEntry
+	(*v1alpha1.ObjectMetadata)(nil),        // 48: meta.v1alpha1.ObjectMetadata
+	(*v1alpha11.Event)(nil),                // 49: event.v1alpha1.Event
 }
 var file_volume_v1alpha1_api_proto_depIdxs = []int32{
-	40, // 0: volume.v1alpha1.VolumeFilter.label_selector:type_name -> volume.v1alpha1.VolumeFilter.LabelSelectorEntry
-	41, // 1: volume.v1alpha1.EventFilter.label_selector:type_name -> volume.v1alpha1.EventFilter.LabelSelectorEntry
-	42, // 2: volume.v1alpha1.EncryptionSpec.secret_data:type_name -> volume.v1alpha1.EncryptionSpec.SecretDataEntry
+	42, // 0: volume.v1alpha1.VolumeFilter.label_selector:type_name -> volume.v1alpha1.VolumeFilter.LabelSelectorEntry
+	43, // 1: volume.v1alpha1.EventFilter.label_selector:type_name -> volume.v1alpha1.EventFilter.LabelSelectorEntry
+	44, // 2: volume.v1alpha1.EncryptionSpec.secret_data:type_name -> volume.v1alpha1.EncryptionSpec.SecretDataEntry
 	6,  // 3: volume.v1alpha1.VolumeDataSource.image_data_source:type_name -> volume.v1alpha1.ImageDataSource
 	7,  // 4: volume.v1alpha1.VolumeDataSource.snapshot_data_source:type_name -> volume.v1alpha1.SnapshotDataSource
 	4,  // 5: volume.v1alpha1.VolumeSpec.resources:type_name -> volume.v1alpha1.VolumeResources
@@ -2190,15 +2287,15 @@ var file_volume_v1alpha1_api_proto_depIdxs = []int32{
 	0,  // 8: volume.v1alpha1.VolumeStatus.state:type_name -> volume.v1alpha1.VolumeState
 	15, // 9: volume.v1alpha1.VolumeStatus.access:type_name -> volume.v1alpha1.VolumeAccess
 	4,  // 10: volume.v1alpha1.VolumeStatus.resources:type_name -> volume.v1alpha1.VolumeResources
-	46, // 11: volume.v1alpha1.Volume.metadata:type_name -> meta.v1alpha1.ObjectMetadata
+	48, // 11: volume.v1alpha1.Volume.metadata:type_name -> meta.v1alpha1.ObjectMetadata
 	9,  // 12: volume.v1alpha1.Volume.spec:type_name -> volume.v1alpha1.VolumeSpec
 	10, // 13: volume.v1alpha1.Volume.status:type_name -> volume.v1alpha1.VolumeStatus
 	12, // 14: volume.v1alpha1.VolumeClass.capabilities:type_name -> volume.v1alpha1.VolumeClassCapabilities
 	13, // 15: volume.v1alpha1.VolumeClassStatus.volume_class:type_name -> volume.v1alpha1.VolumeClass
-	43, // 16: volume.v1alpha1.VolumeAccess.attributes:type_name -> volume.v1alpha1.VolumeAccess.AttributesEntry
-	44, // 17: volume.v1alpha1.VolumeAccess.secret_data:type_name -> volume.v1alpha1.VolumeAccess.SecretDataEntry
+	45, // 16: volume.v1alpha1.VolumeAccess.attributes:type_name -> volume.v1alpha1.VolumeAccess.AttributesEntry
+	46, // 17: volume.v1alpha1.VolumeAccess.secret_data:type_name -> volume.v1alpha1.VolumeAccess.SecretDataEntry
 	3,  // 18: volume.v1alpha1.ListEventsRequest.filter:type_name -> volume.v1alpha1.EventFilter
-	47, // 19: volume.v1alpha1.ListEventsResponse.events:type_name -> event.v1alpha1.Event
+	49, // 19: volume.v1alpha1.ListEventsResponse.events:type_name -> event.v1alpha1.Event
 	2,  // 20: volume.v1alpha1.ListVolumesRequest.filter:type_name -> volume.v1alpha1.VolumeFilter
 	11, // 21: volume.v1alpha1.ListVolumesResponse.volumes:type_name -> volume.v1alpha1.Volume
 	11, // 22: volume.v1alpha1.CreateVolumeRequest.volume:type_name -> volume.v1alpha1.Volume
@@ -2206,39 +2303,42 @@ var file_volume_v1alpha1_api_proto_depIdxs = []int32{
 	11, // 24: volume.v1alpha1.CreateVolumeResponse.volume:type_name -> volume.v1alpha1.Volume
 	14, // 25: volume.v1alpha1.StatusResponse.volume_class_status:type_name -> volume.v1alpha1.VolumeClassStatus
 	1,  // 26: volume.v1alpha1.VolumeSnapshotStatus.state:type_name -> volume.v1alpha1.VolumeSnapshotState
-	46, // 27: volume.v1alpha1.VolumeSnapshot.metadata:type_name -> meta.v1alpha1.ObjectMetadata
+	48, // 27: volume.v1alpha1.VolumeSnapshot.metadata:type_name -> meta.v1alpha1.ObjectMetadata
 	30, // 28: volume.v1alpha1.VolumeSnapshot.spec:type_name -> volume.v1alpha1.VolumeSnapshotSpec
 	31, // 29: volume.v1alpha1.VolumeSnapshot.status:type_name -> volume.v1alpha1.VolumeSnapshotStatus
-	45, // 30: volume.v1alpha1.VolumeSnapshotFilter.label_selector:type_name -> volume.v1alpha1.VolumeSnapshotFilter.LabelSelectorEntry
+	47, // 30: volume.v1alpha1.VolumeSnapshotFilter.label_selector:type_name -> volume.v1alpha1.VolumeSnapshotFilter.LabelSelectorEntry
 	33, // 31: volume.v1alpha1.ListVolumeSnapshotsRequest.filter:type_name -> volume.v1alpha1.VolumeSnapshotFilter
 	32, // 32: volume.v1alpha1.ListVolumeSnapshotsResponse.volume_snapshots:type_name -> volume.v1alpha1.VolumeSnapshot
 	32, // 33: volume.v1alpha1.CreateVolumeSnapshotRequest.volume_snapshot:type_name -> volume.v1alpha1.VolumeSnapshot
 	32, // 34: volume.v1alpha1.CreateVolumeSnapshotResponse.volume_snapshot:type_name -> volume.v1alpha1.VolumeSnapshot
-	18, // 35: volume.v1alpha1.VolumeRuntime.Version:input_type -> volume.v1alpha1.VersionRequest
-	16, // 36: volume.v1alpha1.VolumeRuntime.ListEvents:input_type -> volume.v1alpha1.ListEventsRequest
-	20, // 37: volume.v1alpha1.VolumeRuntime.ListVolumes:input_type -> volume.v1alpha1.ListVolumesRequest
-	22, // 38: volume.v1alpha1.VolumeRuntime.CreateVolume:input_type -> volume.v1alpha1.CreateVolumeRequest
-	23, // 39: volume.v1alpha1.VolumeRuntime.ExpandVolume:input_type -> volume.v1alpha1.ExpandVolumeRequest
-	26, // 40: volume.v1alpha1.VolumeRuntime.DeleteVolume:input_type -> volume.v1alpha1.DeleteVolumeRequest
-	36, // 41: volume.v1alpha1.VolumeRuntime.CreateVolumeSnapshot:input_type -> volume.v1alpha1.CreateVolumeSnapshotRequest
-	38, // 42: volume.v1alpha1.VolumeRuntime.DeleteVolumeSnapshot:input_type -> volume.v1alpha1.DeleteVolumeSnapshotRequest
-	34, // 43: volume.v1alpha1.VolumeRuntime.ListVolumeSnapshots:input_type -> volume.v1alpha1.ListVolumeSnapshotsRequest
-	28, // 44: volume.v1alpha1.VolumeRuntime.Status:input_type -> volume.v1alpha1.StatusRequest
-	19, // 45: volume.v1alpha1.VolumeRuntime.Version:output_type -> volume.v1alpha1.VersionResponse
-	17, // 46: volume.v1alpha1.VolumeRuntime.ListEvents:output_type -> volume.v1alpha1.ListEventsResponse
-	21, // 47: volume.v1alpha1.VolumeRuntime.ListVolumes:output_type -> volume.v1alpha1.ListVolumesResponse
-	24, // 48: volume.v1alpha1.VolumeRuntime.CreateVolume:output_type -> volume.v1alpha1.CreateVolumeResponse
-	25, // 49: volume.v1alpha1.VolumeRuntime.ExpandVolume:output_type -> volume.v1alpha1.ExpandVolumeResponse
-	27, // 50: volume.v1alpha1.VolumeRuntime.DeleteVolume:output_type -> volume.v1alpha1.DeleteVolumeResponse
-	37, // 51: volume.v1alpha1.VolumeRuntime.CreateVolumeSnapshot:output_type -> volume.v1alpha1.CreateVolumeSnapshotResponse
-	39, // 52: volume.v1alpha1.VolumeRuntime.DeleteVolumeSnapshot:output_type -> volume.v1alpha1.DeleteVolumeSnapshotResponse
-	35, // 53: volume.v1alpha1.VolumeRuntime.ListVolumeSnapshots:output_type -> volume.v1alpha1.ListVolumeSnapshotsResponse
-	29, // 54: volume.v1alpha1.VolumeRuntime.Status:output_type -> volume.v1alpha1.StatusResponse
-	45, // [45:55] is the sub-list for method output_type
-	35, // [35:45] is the sub-list for method input_type
-	35, // [35:35] is the sub-list for extension type_name
-	35, // [35:35] is the sub-list for extension extendee
-	0,  // [0:35] is the sub-list for field type_name
+	5,  // 35: volume.v1alpha1.RotateVolumeEncryptionRequest.encryption:type_name -> volume.v1alpha1.EncryptionSpec
+	18, // 36: volume.v1alpha1.VolumeRuntime.Version:input_type -> volume.v1alpha1.VersionRequest
+	16, // 37: volume.v1alpha1.VolumeRuntime.ListEvents:input_type -> volume.v1alpha1.ListEventsRequest
+	20, // 38: volume.v1alpha1.VolumeRuntime.ListVolumes:input_type -> volume.v1alpha1.ListVolumesRequest
+	22, // 39: volume.v1alpha1.VolumeRuntime.CreateVolume:input_type -> volume.v1alpha1.CreateVolumeRequest
+	23, // 40: volume.v1alpha1.VolumeRuntime.ExpandVolume:input_type -> volume.v1alpha1.ExpandVolumeRequest
+	26, // 41: volume.v1alpha1.VolumeRuntime.DeleteVolume:input_type -> volume.v1alpha1.DeleteVolumeRequest
+	36, // 42: volume.v1alpha1.VolumeRuntime.CreateVolumeSnapshot:input_type -> volume.v1alpha1.CreateVolumeSnapshotRequest
+	38, // 43: volume.v1alpha1.VolumeRuntime.DeleteVolumeSnapshot:input_type -> volume.v1alpha1.DeleteVolumeSnapshotRequest
+	34, // 44: volume.v1alpha1.VolumeRuntime.ListVolumeSnapshots:input_type -> volume.v1alpha1.ListVolumeSnapshotsRequest
+	40, // 45: volume.v1alpha1.VolumeRuntime.RotateVolumeEncryption:input_type -> volume.v1alpha1.RotateVolumeEncryptionRequest
+	28, // 46: volume.v1alpha1.VolumeRuntime.Status:input_type -> volume.v1alpha1.StatusRequest
+	19, // 47: volume.v1alpha1.VolumeRuntime.Version:output_type -> volume.v1alpha1.VersionResponse
+	17, // 48: volume.v1alpha1.VolumeRuntime.ListEvents:output_type -> volume.v1alpha1.ListEventsResponse
+	21, // 49: volume.v1alpha1.VolumeRuntime.ListVolumes:output_type -> volume.v1alpha1.ListVolumesResponse
+	24, // 50: volume.v1alpha1.VolumeRuntime.CreateVolume:output_type -> volume.v1alpha1.CreateVolumeResponse
+	25, // 51: volume.v1alpha1.VolumeRuntime.ExpandVolume:output_type -> volume.v1alpha1.ExpandVolumeResponse
+	27, // 52: volume.v1alpha1.VolumeRuntime.DeleteVolume:output_type -> volume.v1alpha1.DeleteVolumeResponse
+	37, // 53: volume.v1alpha1.VolumeRuntime.CreateVolumeSnapshot:output_type -> volume.v1alpha1.CreateVolumeSnapshotResponse
+	39, // 54: volume.v1alpha1.VolumeRuntime.DeleteVolumeSnapshot:output_type -> volume.v1alpha1.DeleteVolumeSnapshotResponse
+	35, // 55: volume.v1alpha1.VolumeRuntime.ListVolumeSnapshots:output_type -> volume.v1alpha1.ListVolumeSnapshotsResponse
+	41, // 56: volume.v1alpha1.VolumeRuntime.RotateVolumeEncryption:output_type -> volume.v1alpha1.RotateVolumeEncryptionResponse
+	29, // 57: volume.v1alpha1.VolumeRuntime.Status:output_type -> volume.v1alpha1.StatusResponse
+	47, // [47:58] is the sub-list for method output_type
+	36, // [36:47] is the sub-list for method input_type
+	36, // [36:36] is the sub-list for extension type_name
+	36, // [36:36] is the sub-list for extension extendee
+	0,  // [0:36] is the sub-list for field type_name
 }
 
 func init() { file_volume_v1alpha1_api_proto_init() }
@@ -2252,7 +2352,7 @@ func file_volume_v1alpha1_api_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_volume_v1alpha1_api_proto_rawDesc), len(file_volume_v1alpha1_api_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   44,
+			NumMessages:   46,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
