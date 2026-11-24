@@ -123,7 +123,9 @@ func validateVolumeSpecUpdate(newSpec, oldSpec *storage.VolumeSpec, fldPath *fie
 
 	allErrs = append(allErrs, ironcorevalidation.ValidateImmutableField(newSpec.VolumeClassRef, oldSpec.VolumeClassRef, fldPath.Child("volumeClassRef"))...)
 	allErrs = append(allErrs, ironcorevalidation.ValidateSetOnceField(newSpec.VolumePoolRef, oldSpec.VolumePoolRef, fldPath.Child("volumePoolRef"))...)
-	allErrs = append(allErrs, ironcorevalidation.ValidateImmutableField(newSpec.Encryption, oldSpec.Encryption, fldPath.Child("encryption"))...)
+	if oldSpec.Encryption != nil && newSpec.Encryption == nil {
+		allErrs = append(allErrs, field.Forbidden(fldPath.Child("encryption"), "encryption cannot be removed once set"))
+	}
 
 	return allErrs
 }

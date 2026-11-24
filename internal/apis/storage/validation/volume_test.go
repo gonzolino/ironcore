@@ -222,48 +222,48 @@ var _ = Describe("Volume", func() {
 			},
 			Not(ContainElement(ImmutableField("spec.volumePoolRef"))),
 		),
-		Entry("immutable encryption: modify encryption field",
+		Entry("mutable encryption: modify secret ref",
 			&storage.Volume{
 				Spec: storage.VolumeSpec{
 					VolumeClassRef: &corev1.LocalObjectReference{Name: "foo"},
-					Encryption:     &storage.VolumeEncryption{SecretRef: corev1.LocalObjectReference{Name: "foo"}},
+					Encryption:     &storage.VolumeEncryption{SecretRef: corev1.LocalObjectReference{Name: "new-key"}},
 				},
 			},
 			&storage.Volume{
 				Spec: storage.VolumeSpec{
 					VolumeClassRef: &corev1.LocalObjectReference{Name: "foo"},
-					Encryption:     &storage.VolumeEncryption{SecretRef: corev1.LocalObjectReference{Name: "bar"}},
+					Encryption:     &storage.VolumeEncryption{SecretRef: corev1.LocalObjectReference{Name: "old-key"}},
 				},
 			},
-			ContainElement(ImmutableField("spec.encryption")),
+			Not(ContainElement(ImmutableField("spec.encryption"))),
 		),
-		Entry("immutable encryption: add encryption field",
+		Entry("mutable encryption: add encryption field",
 			&storage.Volume{
 				Spec: storage.VolumeSpec{
 					VolumeClassRef: &corev1.LocalObjectReference{Name: "foo"},
+					Encryption:     &storage.VolumeEncryption{SecretRef: corev1.LocalObjectReference{Name: "my-key"}},
 				},
 			},
 			&storage.Volume{
 				Spec: storage.VolumeSpec{
 					VolumeClassRef: &corev1.LocalObjectReference{Name: "foo"},
-					Encryption:     &storage.VolumeEncryption{SecretRef: corev1.LocalObjectReference{Name: "foo"}},
 				},
 			},
-			ContainElement(ImmutableField("spec.encryption")),
+			Not(ContainElement(ImmutableField("spec.encryption"))),
 		),
 		Entry("immutable encryption: remove encryption field",
 			&storage.Volume{
 				Spec: storage.VolumeSpec{
 					VolumeClassRef: &corev1.LocalObjectReference{Name: "foo"},
-					Encryption:     &storage.VolumeEncryption{SecretRef: corev1.LocalObjectReference{Name: "foo"}},
 				},
 			},
 			&storage.Volume{
 				Spec: storage.VolumeSpec{
 					VolumeClassRef: &corev1.LocalObjectReference{Name: "foo"},
+					Encryption:     &storage.VolumeEncryption{SecretRef: corev1.LocalObjectReference{Name: "my-key"}},
 				},
 			},
-			ContainElement(ImmutableField("spec.encryption")),
+			ContainElement(ForbiddenField("spec.encryption")),
 		),
 	)
 })

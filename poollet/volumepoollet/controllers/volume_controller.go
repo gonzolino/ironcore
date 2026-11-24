@@ -8,6 +8,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"maps"
 	"time"
 
 	"github.com/go-logr/logr"
@@ -568,6 +569,30 @@ func (r *VolumeReconciler) update(ctx context.Context, log logr.Logger, volume *
 			},
 		}); err != nil {
 			return fmt.Errorf("failed to expand volume: %w", err)
+		}
+	}
+
+	if volume.Spec.Encryption != nil {
+		encryptionSpec, ok, err := r.prepareIRIVolumeSpecEncryption(ctx, volume)
+		if err != nil {
+			return fmt.Errorf("failed to prepare encryption for key rotation: %w", err)
+		}
+		if ok {
+			var currentSecretData map[string][]byte
+			if iriVolume.Spec.Encryption != nil {
+				currentSecretData = iriVolume.Spec.Encryption.SecretData
+			}
+			if !maps.EqualFunc(encryptionSpec.SecretData, currentSecretData, func(a, b []byte) bool {
+				return string(a) == string(b)
+			}) {
+				log.V(1).Info("Rotating volume encryption key")
+				if _, err := r.VolumeRuntime.RotateVolumeEncryption(ctx, &iri.RotateVolumeEncryptionRequest{
+					VolumeId:   iriVolume.Metadata.Id,
+					Encryption: encryptionSpec,
+				}); err != nil {
+					return fmt.Errorf("failed to rotate volume encryption key: %w", err)
+				}
+			}
 		}
 	}
 

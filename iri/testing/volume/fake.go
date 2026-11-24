@@ -247,6 +247,20 @@ func (r *FakeRuntimeService) DeleteVolumeSnapshot(ctx context.Context, req *iri.
 	return &iri.DeleteVolumeSnapshotResponse{}, nil
 }
 
+func (r *FakeRuntimeService) RotateVolumeEncryption(ctx context.Context, req *iri.RotateVolumeEncryptionRequest) (*iri.RotateVolumeEncryptionResponse, error) {
+	r.Lock()
+	defer r.Unlock()
+
+	volume, ok := r.Volumes[req.VolumeId]
+	if !ok {
+		return nil, status.Errorf(codes.NotFound, "volume %q not found", req.VolumeId)
+	}
+
+	volume.Spec.Encryption = req.Encryption
+
+	return &iri.RotateVolumeEncryptionResponse{}, nil
+}
+
 func (r *FakeRuntimeService) Status(ctx context.Context, req *iri.StatusRequest) (*iri.StatusResponse, error) {
 	r.Lock()
 	defer r.Unlock()

@@ -163,6 +163,81 @@ var _ = Describe("VolumeController", func() {
 
 	})
 
+	It("should rotate the encryption key when spec.encryption.secretRef changes", func(ctx SpecContext) {
+		size := resource.MustParse("99Mi")
+
+		By("creating the initial encryption secret")
+		oldSecret := &corev1.Secret{
+			ObjectMeta: metav1.ObjectMeta{
+				Namespace:    ns.Name,
+				GenerateName: "encryption-old-",
+			},
+			Data: map[string][]byte{
+				"encryptionKey": []byte("old-key-data"),
+			},
+		}
+		Expect(k8sClient.Create(ctx, oldSecret)).To(Succeed())
+
+		By("creating an encrypted volume pointing at the initial secret")
+		volume := &storagev1alpha1.Volume{
+			ObjectMeta: metav1.ObjectMeta{
+				Namespace:    ns.Name,
+				GenerateName: "volume-",
+			},
+			Spec: storagev1alpha1.VolumeSpec{
+				VolumeClassRef: &corev1.LocalObjectReference{Name: vc.Name},
+				VolumePoolRef:  &corev1.LocalObjectReference{Name: vp.Name},
+				Resources: corev1alpha1.ResourceList{
+					corev1alpha1.ResourceStorage: size,
+				},
+				Encryption: &storagev1alpha1.VolumeEncryption{
+					SecretRef: corev1.LocalObjectReference{Name: oldSecret.Name},
+				},
+			},
+		}
+		Expect(k8sClient.Create(ctx, volume)).To(Succeed())
+		DeferCleanup(expectVolumeDeleted, volume)
+
+		By("waiting for the runtime to report the volume with the initial key")
+		Eventually(srv).Should(HaveField("Volumes", HaveLen(1)))
+		Eventually(func() map[string][]byte {
+			_, iriVolume := GetSingleMapEntry(srv.Volumes)
+			if iriVolume.Spec.Encryption == nil {
+				return nil
+			}
+			return iriVolume.Spec.Encryption.SecretData
+		}).Should(HaveKeyWithValue("encryptionKey", []byte("old-key-data")))
+
+		By("creating a new encryption secret")
+		newSecret := &corev1.Secret{
+			ObjectMeta: metav1.ObjectMeta{
+				Namespace:    ns.Name,
+				GenerateName: "encryption-new-",
+			},
+			Data: map[string][]byte{
+				"encryptionKey": []byte("new-key-data"),
+			},
+		}
+		Expect(k8sClient.Create(ctx, newSecret)).To(Succeed())
+
+		By("updating the volume to reference the new secret")
+		base := volume.DeepCopy()
+		volume.Spec.Encryption = &storagev1alpha1.VolumeEncryption{
+			SecretRef: corev1.LocalObjectReference{Name: newSecret.Name},
+		}
+		Expect(k8sClient.Patch(ctx, volume, client.MergeFrom(base))).To(Succeed())
+
+		By("waiting for the runtime to reflect the new encryption key")
+		Eventually(srv).Should(HaveField("Volumes", HaveLen(1)))
+		Eventually(func() map[string][]byte {
+			_, iriVolume := GetSingleMapEntry(srv.Volumes)
+			if iriVolume.Spec.Encryption == nil {
+				return nil
+			}
+			return iriVolume.Spec.Encryption.SecretData
+		}).Should(HaveKeyWithValue("encryptionKey", []byte("new-key-data")))
+	})
+
 	It("should expand a volume", func(ctx SpecContext) {
 		size := resource.MustParse("100Mi")
 		newSize := resource.MustParse("200Mi")
